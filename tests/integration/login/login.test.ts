@@ -2,6 +2,7 @@ import sinon from 'sinon';
 import chai, { expect } from 'chai';
 import chaiHttp from 'chai-http';
 import loginMock from '../../mocks/login.mock';
+import bcrypt from 'bcryptjs';
 
 import app from '../../../src/app'
 import UserModel from '../../../src/database/models/user.model';
@@ -42,11 +43,23 @@ describe('POST /login', function () {
   it('Retorna um erro se a senha está errada', async function () {
     const body = loginMock.loginBodyBadPassword;
     const mockGoodResponse = UserModel.build(loginMock.goodUser);
-    sinon.stub(UserModel, 'findAll').resolves([mockGoodResponse])
+    sinon.stub(UserModel, 'findAll').resolves([mockGoodResponse]);
 
     const response = await chai.request(app).post('/login').send(body);
 
     expect(response.status).to.equal(401);
     expect(response.body).to.be.deep.equal({ message: 'Username or password invalid' });
+  })
+
+  it('Retorna um token se tudo está correto', async function () {
+    const body = loginMock.loginBodyGood;
+    const mockGoodResponse = UserModel.build(loginMock.goodUser);
+    sinon.stub(UserModel, 'findAll').resolves([mockGoodResponse]);
+    sinon.stub(bcrypt, 'compare').resolves(true);
+
+    const response = await chai.request(app).post('/login').send(body);
+
+    expect(response.status).to.equal(200);
+    expect(response.body).to.have.key('token');
   })
 });

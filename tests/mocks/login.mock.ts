@@ -15,6 +15,7 @@ const loginBodyNoUser = { username: undefined, password: goodPassword };
 const loginBodyNoPassword = { username: goodUsername, password: undefined };
 const loginBodyBadUser = { username: badUsername, password: goodPassword };
 const loginBodyBadPassword = { username: goodUsername, password: badPassword};
+const loginBodyGood = { username: goodUsername, password: goodPassword };
 
 export default {
   loginBodyNoUser,
@@ -22,4 +23,5 @@ export default {
   loginBodyBadUser,
   loginBodyBadPassword,
   goodUser,
+  loginBodyGood,
 }
