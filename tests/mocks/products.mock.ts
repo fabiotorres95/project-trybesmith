@@ -2,7 +2,7 @@ const product1 = {
   id: 1,
   name: 'Pedra Filosofal',
   price: '20 gold',
-  orderId: 2
+  orderId: 1
 };
 const product2 = {
   id: 2,
@@ -14,7 +14,7 @@ const product3 = {
   id: 3,
   name: 'Bombas do Morshu',
   price: '...enough Rupees',
-  orderId: 3
+  orderId: 2
 };
 
 const allProducts = [
