@@ -1,6 +1,12 @@
 import UserModel from '../database/models/user.model';
 
-async function postNewLogin(username: string, _password: string) : Promise<string> {
+async function postNewLogin(
+  username: string | undefined, 
+  password: string | undefined,
+): Promise<string> {
+  if (username === undefined || password === undefined) {
+    return '"username" and "password" are required';
+  }
   const dbUser = await UserModel.findAll({
     where: {
       username,

@@ -6,6 +6,10 @@ async function newLogin(req: Request, res: Response) {
 
   const result = await loginService.postNewLogin(username, password);
 
+  if (result === '"username" and "password" are required') {
+    return res.status(400).json({ message: result });
+  }
+
   if (result === 'Username or password invalid') {
     return res.status(401).json({ message: result });
   }
